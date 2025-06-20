@@ -1,37 +1,46 @@
-# 🎓 Öğrenci Yönetim Sistemi
+#  Öğrenci Yönetim Sistemi
 
 Flask ve SQLite kullanılarak geliştirilmiş kapsamlı bir öğrenci yönetim sistemi.
 
-## 🌟 Özellikler
+###  Giriş Ekranı
+![Giriş Ekranı](screenshotLogin.png)
 
-### 👥 Kullanıcı Rolleri
+###  Öğretmen Paneli
+![Öğretmen Paneli](screenshotTeacher.png)
+
+###  Öğrenci Paneli
+![Öğrenci Paneli](screenshotStudent.png)
+
+##  Özellikler
+
+###  Kullanıcı Rolleri
 - **Öğretmen**: Öğrenci, kurs, not yönetimi, PDF raporları, duyuru yayınlama
 - **Öğrenci**: Kurs görüntüleme, not takibi, PDF indirme, duyuru okuma
 
-### 📄 PDF Rapor Sistemi
+###  PDF Rapor Sistemi
 - Öğrenci kişisel raporları
 - Kurs detay raporları  
 - Genel istatistik raporları
 - İngilizce format
 
-### 📝 Kişisel Not Sistemi
+###  Kişisel Not Sistemi
 - Öğretmen ve öğrenci notları
 - Başlık ve içerik organizasyonu
 - Tarih takibi
 
-### 📢 Duyuru Sistemi
+###  Duyuru Sistemi
 - Öğretmenler tarafından yayınlama
 - Öğrenciler tarafından görüntüleme
 - Tarih sıralaması
 
-## 🛠️ Teknoloji Stack
+##   Teknoloji Stack
 
 - **Backend**: Flask, SQLAlchemy, Flask-Login
 - **Frontend**: Bootstrap 5, Font Awesome, Jinja2
 - **Database**: SQLite
 - **PDF**: ReportLab
 
-## 🚀 Kurulum
+##  Kurulum
 
 ```bash
 # Projeyi klonlayın
@@ -52,7 +61,7 @@ python app.py
 
 Tarayıcıda açın: `http://localhost:8080`
 
-## 👤 Test Kullanıcıları
+##  Test Kullanıcıları
 
 ### Öğretmen Hesabı
 - **Email**: teacher@test.com
@@ -79,7 +88,7 @@ student-management-system/
 └── static/              # CSS, JS dosyaları
 ```
 
-## 🗄️ Veritabanı Tabloları
+##  Veritabanı Tabloları
 
 - **users**: Kullanıcı bilgileri (öğretmen/öğrenci)
 - **courses**: Kurs bilgileri
@@ -88,7 +97,7 @@ student-management-system/
 - **notes**: Kişisel notlar
 - **announcements**: Duyurular
 
-## 🔧 Kullanım
+##  Kullanım
 
 ### Öğretmen İşlemleri
 1. Giriş yapın (`teacher@test.com` / `password`)
@@ -105,14 +114,14 @@ student-management-system/
 3. PDF raporunuzu indirin
 4. Duyuruları takip edin
 
-## 🛡️ Güvenlik
+##   Güvenlik
 
 - Şifre hashleme (Werkzeug)
 - Rol tabanlı erişim kontrolü
 - Session yönetimi (Flask-Login)
 - SQL injection koruması (SQLAlchemy)
 
-## 📝 Lisans
+##  Lisans
 
 MIT Lisansı
 
