@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+
+{% block title %}Duyuru Yönetimi - Öğrenci Yönetim Sistemi{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>
+                <i class="fas fa-bullhorn me-2"></i>
+                Duyuru Yönetimi
+            </h2>
+            <a href="{{ url_for('add_announcement') }}" class="btn btn-primary">
+                <i class="fas fa-plus me-1"></i>
+                Yeni Duyuru Ekle
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-list me-2"></i>
+                    Duyurularım
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if announcements %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Başlık</th>
+                                <th>İçerik</th>
+                                <th>Yayınlanma Tarihi</th>
+                                <th>Güncellenme Tarihi</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for announcement in announcements %}
+                            <tr>
+                                <td>{{ announcement.title }}</td>
+                                <td>
+                                    {% if announcement.content|length > 50 %}
+                                        {{ announcement.content[:50] }}...
+                                    {% else %}
+                                        {{ announcement.content }}
+                                    {% endif %}
+                                </td>
+                                <td>{{ announcement.created_at.strftime('%d.%m.%Y %H:%M') }}</td>
+                                <td>{{ announcement.updated_at.strftime('%d.%m.%Y %H:%M') }}</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="{{ url_for('edit_announcement', announcement_id=announcement.id) }}" class="btn btn-sm btn-primary">
+                                            <i class="fas fa-edit"></i>
+                                            Düzenle
+                                        </a>
+                                        <form method="POST" action="{{ url_for('delete_announcement', announcement_id=announcement.id) }}" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bu duyuruyu silmek istediğinizden emin misiniz?')">
+                                                <i class="fas fa-trash"></i>
+                                                Sil
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center text-muted">
+                    <i class="fas fa-bullhorn fa-3x mb-3"></i>
+                    <p>Henüz hiç duyuru yayınlamadınız.</p>
+                    <a href="{{ url_for('add_announcement') }}" class="btn btn-primary">
+                        <i class="fas fa-plus me-1"></i>
+                        İlk Duyurunuzu Yayınlayın
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

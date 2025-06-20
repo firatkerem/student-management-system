@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}Öğretmen Dashboard - Öğrenci Yönetim Sistemi{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2 class="mb-4">
+            <i class="fas fa-chalkboard-teacher me-2"></i>
+            Öğretmen Dashboard
+        </h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <i class="fas fa-users fa-3x text-primary"></i>
+                </div>
+                <h5 class="card-title">Öğrenci Yönetimi</h5>
+                <p class="card-text">Öğrencileri görüntüleyin, ekleyin ve silin.</p>
+                <a href="{{ url_for('manage_students') }}" class="btn btn-primary">
+                    <i class="fas fa-users me-1"></i>
+                    Öğrencileri Yönet
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <i class="fas fa-book fa-3x text-success"></i>
+                </div>
+                <h5 class="card-title">Kurs Yönetimi</h5>
+                <p class="card-text">Kursları görüntüleyin, ekleyin ve silin.</p>
+                <a href="{{ url_for('manage_courses') }}" class="btn btn-success">
+                    <i class="fas fa-book me-1"></i>
+                    Kursları Yönet
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <i class="fas fa-user-graduate fa-3x text-info"></i>
+                </div>
+                <h5 class="card-title">Kurs Kayıtları</h5>
+                <p class="card-text">Öğrencileri kurslara kaydedin ve yönetin.</p>
+                <a href="{{ url_for('manage_enrollments') }}" class="btn btn-info">
+                    <i class="fas fa-user-graduate me-1"></i>
+                    Kayıtları Yönet
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3 mb-4">
+        <div class="card h-100">
+            <div class="card-body text-center">
+                <div class="mb-3">
+                    <i class="fas fa-star fa-3x text-warning"></i>
+                </div>
+                <h5 class="card-title">Not Yönetimi</h5>
+                <p class="card-text">Öğrenci notlarını görüntüleyin ve düzenleyin.</p>
+                <a href="{{ url_for('manage_grades') }}" class="btn btn-warning">
+                    <i class="fas fa-star me-1"></i>
+                    Notları Yönet
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-tools me-2"></i>
+                    Hızlı İşlemler
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 text-center mb-3">
+                        <a href="{{ url_for('add_student') }}" class="btn btn-outline-primary btn-lg w-100">
+                            <i class="fas fa-user-plus fa-2x mb-2"></i><br>
+                            Yeni Öğrenci Ekle
+                        </a>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                        <a href="{{ url_for('add_course') }}" class="btn btn-outline-success btn-lg w-100">
+                            <i class="fas fa-plus-circle fa-2x mb-2"></i><br>
+                            Yeni Kurs Ekle
+                        </a>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                        <a href="{{ url_for('add_note') }}" class="btn btn-outline-info btn-lg w-100">
+                            <i class="fas fa-sticky-note fa-2x mb-2"></i><br>
+                            Not Ekle
+                        </a>
+                    </div>
+                    <div class="col-md-3 text-center mb-3">
+                        <a href="{{ url_for('teacher_pdf') }}" class="btn btn-outline-warning btn-lg w-100">
+                            <i class="fas fa-file-pdf fa-2x mb-2"></i><br>
+                            PDF Raporları
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-bullhorn me-2"></i>
+                    Duyuru Yönetimi
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Öğrencilere duyuru yayınlayın ve yönetin.</p>
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('manage_announcements') }}" class="btn btn-secondary">
+                        <i class="fas fa-list me-1"></i>
+                        Duyurularımı Görüntüle
+                    </a>
+                    <a href="{{ url_for('add_announcement') }}" class="btn btn-outline-secondary">
+                        <i class="fas fa-plus me-1"></i>
+                        Yeni Duyuru Ekle
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-dark text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-user me-2"></i>
+                    Profil Bilgileri
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="mb-0">
+                    <strong>Ad Soyad:</strong> {{ current_user.name }}<br>
+                    <strong>Email:</strong> {{ current_user.email }}<br>
+                    <strong>Rol:</strong> Öğretmen<br>
+                    <strong>Kayıt Tarihi:</strong> {{ current_user.created_at.strftime('%d.%m.%Y') }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

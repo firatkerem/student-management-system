@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}PDF Yönetimi - Öğrenci Yönetim Sistemi{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>
+                <i class="fas fa-file-pdf me-2"></i>
+                PDF Yönetimi
+            </h2>
+            <a href="{{ url_for('add_pdf') }}" class="btn btn-primary">
+                <i class="fas fa-plus me-1"></i>
+                Yeni PDF Oluştur
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-list me-2"></i>
+                    PDF'lerim
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if pdfs %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Başlık</th>
+                                <th>Oluşturulma Tarihi</th>
+                                <th>Güncellenme Tarihi</th>
+                                <th>İşlemler</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for pdf in pdfs %}
+                            <tr>
+                                <td>{{ pdf.title }}</td>
+                                <td>{{ pdf.created_at.strftime('%d.%m.%Y %H:%M') }}</td>
+                                <td>{{ pdf.updated_at.strftime('%d.%m.%Y %H:%M') }}</td>
+                                <td>
+                                    <div class="btn-group" role="group">
+                                        <a href="{{ url_for('download_pdf', pdf_id=pdf.id) }}" class="btn btn-sm btn-success">
+                                            <i class="fas fa-download"></i>
+                                            İndir
+                                        </a>
+                                        <form method="POST" action="{{ url_for('delete_pdf', pdf_id=pdf.id) }}" class="d-inline">
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Bu PDF\'i silmek istediğinizden emin misiniz?')">
+                                                <i class="fas fa-trash"></i>
+                                                Sil
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center text-muted">
+                    <i class="fas fa-file-pdf fa-3x mb-3"></i>
+                    <p>Henüz hiç PDF oluşturmadınız.</p>
+                    <a href="{{ url_for('add_pdf') }}" class="btn btn-primary">
+                        <i class="fas fa-plus me-1"></i>
+                        İlk PDF'inizi Oluşturun
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

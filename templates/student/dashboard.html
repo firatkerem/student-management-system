@@ -1,0 +1,215 @@
+{% extends "base.html" %}
+
+{% block title %}Öğrenci Dashboard - Öğrenci Yönetim Sistemi{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2 class="mb-4">
+            <i class="fas fa-tachometer-alt me-2"></i>
+            Öğrenci Dashboard
+        </h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-book me-2"></i>
+                    Kayıtlı Kurslarım
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if enrollments %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Kurs Adı</th>
+                                <th>Açıklama</th>
+                                <th>Öğretmen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for enrollment in enrollments %}
+                            <tr>
+                                <td>{{ enrollment.course.name }}</td>
+                                <td>{{ enrollment.course.description or 'Açıklama yok' }}</td>
+                                <td>{{ enrollment.course.teacher.name }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center text-muted">
+                    <i class="fas fa-book-open fa-3x mb-3"></i>
+                    <p>Henüz hiç kursa kayıtlı değilsiniz.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-star me-2"></i>
+                    Notlarım
+                </h5>
+            </div>
+            <div class="card-body">
+                {% if grades %}
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Kurs Adı</th>
+                                <th>Not</th>
+                                <th>Durum</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for grade in grades %}
+                            <tr>
+                                <td>{{ grade.course.name }}</td>
+                                <td>
+                                    <span class="badge bg-{{ 'success' if grade.note >= 70 else 'warning' if grade.note >= 50 else 'danger' }}">
+                                        {{ grade.note }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {% if grade.note >= 70 %}
+                                        <span class="text-success">Başarılı</span>
+                                    {% elif grade.note >= 50 %}
+                                        <span class="text-warning">Orta</span>
+                                    {% else %}
+                                        <span class="text-danger">Başarısız</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="text-center text-muted">
+                    <i class="fas fa-star fa-3x mb-3"></i>
+                    <p>Henüz hiç notunuz bulunmuyor.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-sticky-note me-2"></i>
+                    Kişisel Notlarım
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Kişisel notlarınızı yönetin ve düzenleyin.</p>
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('manage_notes') }}" class="btn btn-info">
+                        <i class="fas fa-list me-1"></i>
+                        Notlarımı Görüntüle
+                    </a>
+                    <a href="{{ url_for('add_note') }}" class="btn btn-outline-info">
+                        <i class="fas fa-plus me-1"></i>
+                        Yeni Not Ekle
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-warning text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-bullhorn me-2"></i>
+                    Duyurular
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Öğretmenlerden gelen duyuruları takip edin.</p>
+                <div class="d-grid">
+                    <a href="{{ url_for('view_announcements') }}" class="btn btn-warning">
+                        <i class="fas fa-eye me-1"></i>
+                        Duyuruları Görüntüle
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-file-pdf me-2"></i>
+                    Ders Raporu PDF
+                </h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Derslerinizi ve notlarınızı PDF olarak indirin.</p>
+                <div class="d-grid">
+                    <a href="{{ url_for('student_pdf') }}" class="btn btn-primary">
+                        <i class="fas fa-download me-1"></i>
+                        PDF İndir
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Özet Bilgiler
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row text-center">
+                    <div class="col-md-3">
+                        <div class="border-end">
+                            <h3 class="text-primary">{{ enrollments|length }}</h3>
+                            <p class="text-muted">Kayıtlı Kurs</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="border-end">
+                            <h3 class="text-success">{{ grades|length }}</h3>
+                            <p class="text-muted">Toplam Not</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="border-end">
+                            <h3 class="text-info">{{ current_user.name }}</h3>
+                            <p class="text-muted">Hoş Geldiniz</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div>
+                            <h3 class="text-warning">{{ current_user.email }}</h3>
+                            <p class="text-muted">Email Adresiniz</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 
